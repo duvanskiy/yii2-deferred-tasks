@@ -35,11 +35,15 @@ class ReportingQueueItem {
           outputElement.parent().find('.reporting-queue-item__message').text(data.errorMessage);
         }
 
+                var scrollingTop = ((outputElement[0].scrollHeight - outputElement.scrollTop() - 19) == outputElement.height());
+
         outputElement.append(data.newOutput);
 
         const height = outputElement[0].scrollHeight;
 
+                if (scrollingTop) {
         outputElement.scrollTop(height);
+                }
 
         let statusText = '';
         switch (data.status) {
@@ -56,7 +60,8 @@ class ReportingQueueItem {
             statusText = 'failed';
             break;
           case 4:
-            statusText = 'complete';
+                        ReportingQueueItem.modalHide();
+                        statusText = "complete";
             break;
           default:
             statusText = 'unknown';
@@ -79,14 +84,22 @@ class ReportingQueueItem {
     });
   }
 
+    static modalHide() {
+        if ($('#reporting-queue-close').is(":checked"))
+            $('.modal').modal('hide');
+    }
+
+
+
   static defaultParams(params) {
     return {
       'modalTitle': params.modalTitle || 'Background task',
       'closeButtonLabel': params.closeButtonLabel || 'Close',
       'statusLabel': params.statusLabel || 'Status:',
       'requestingStatusMessage': params.requestingStatusMessage || 'Requesting queue item information.',
+      'checkboxCloseModal':"Close this window after successful completion of the task",
       'outputRequestInterval': 1000,
-      'endpoint': params.endpoint || '/deferred-report-queue-item',
+      'endpoint': params.endpoint || '/deferred-report-queue-item'
     };
   }
 
@@ -106,6 +119,9 @@ class ReportingQueueItem {
     const body = $(`
     <div class="modal-body">
       <div class="reporting-queue-item">
+        <div class="checkbox">
+        <label> <input type="checkbox" id="reporting-queue-close" value="1" checked>${params.checkboxCloseModal}</label>
+        </div>
         ${params.statusLabel} <span class="reporting-queue-item__status">???</span>
         <div class="reporting-queue-item__message"></div>
         <pre class="reporting-queue-item__output"></pre>
