@@ -94,7 +94,7 @@ class ReportingQueueItem {
     return {
       'modalTitle': params.modalTitle || 'Background task',
       'closeButtonLabel': params.closeButtonLabel || 'Close',
-      'statusLabel': params.statusLabel || 'Status:',
+      'statusLabel': params.statusLabel || 'Status',
       'requestingStatusMessage': params.requestingStatusMessage || 'Requesting queue item information.',
       'checkboxCloseModal': "Close this window after successful completion of the task",
       'outputRequestInterval': 1000,
@@ -121,7 +121,7 @@ class ReportingQueueItem {
         <div class="checkbox checkbox-queue-close">
         <label> <input type="checkbox" class = "checkbox-reporting-queue-close" checked>${params.checkboxCloseModal}</label>
         </div>
-        ${params.statusLabel} <span class="reporting-queue-item__status">???</span>
+        ${params.statusLabel}: <span class="reporting-queue-item__status">???</span>
         <div class="reporting-queue-item__message"></div>
         <pre class="reporting-queue-item__output"></pre>
       </div>
