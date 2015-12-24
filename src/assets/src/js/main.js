@@ -41,9 +41,9 @@ class ReportingQueueItem {
 
         const height = outputElement[0].scrollHeight;
 
-                if (scrollingTop) {
-        outputElement.scrollTop(height);
-                }
+        if (scrollingTop) {
+              outputElement.scrollTop(height);
+        }
 
         let statusText = '';
         switch (data.status) {
