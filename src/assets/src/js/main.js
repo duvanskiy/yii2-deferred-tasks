@@ -35,7 +35,7 @@ class ReportingQueueItem {
           outputElement.parent().find('.reporting-queue-item__message').text(data.errorMessage);
         }
 
-                var scrollingTop = ((outputElement[0].scrollHeight - outputElement.scrollTop() - 19) == outputElement.height());
+        var scrollingTop = ((outputElement[0].scrollHeight - outputElement.scrollTop() - 19) === outputElement.height());
 
         outputElement.append(data.newOutput);
 
@@ -60,9 +60,9 @@ class ReportingQueueItem {
             statusText = 'failed';
             break;
           case 4:
-                        ReportingQueueItem.modalHide();
-                        statusText = "complete";
-            break;
+            ReportingQueueItem.modalHide(outputElement);
+            statusText = "complete";
+          break;
           default:
             statusText = 'unknown';
         }
@@ -84,11 +84,10 @@ class ReportingQueueItem {
     });
   }
 
-    static modalHide() {
-        if ($('#reporting-queue-close').is(":checked"))
-            $('.modal').modal('hide');
-    }
-
+  static modalHide(outputElement) {
+     if (outputElement.parent().find('.checkbox-reporting-queue-close').is(":checked"))
+            outputElement.parent().closest( ".modal" ).modal('hide')
+  }
 
 
   static defaultParams(params) {
@@ -97,7 +96,7 @@ class ReportingQueueItem {
       'closeButtonLabel': params.closeButtonLabel || 'Close',
       'statusLabel': params.statusLabel || 'Status:',
       'requestingStatusMessage': params.requestingStatusMessage || 'Requesting queue item information.',
-      'checkboxCloseModal':"Close this window after successful completion of the task",
+      'checkboxCloseModal': "Close this window after successful completion of the task",
       'outputRequestInterval': 1000,
       'endpoint': params.endpoint || '/deferred-report-queue-item'
     };
@@ -119,8 +118,8 @@ class ReportingQueueItem {
     const body = $(`
     <div class="modal-body">
       <div class="reporting-queue-item">
-        <div class="checkbox">
-        <label> <input type="checkbox" id="reporting-queue-close" value="1" checked>${params.checkboxCloseModal}</label>
+        <div class="checkbox checkbox-queue-close">
+        <label> <input type="checkbox" class = "checkbox-reporting-queue-close" checked>${params.checkboxCloseModal}</label>
         </div>
         ${params.statusLabel} <span class="reporting-queue-item__status">???</span>
         <div class="reporting-queue-item__message"></div>
