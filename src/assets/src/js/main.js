@@ -94,7 +94,7 @@ class ReportingQueueItem {
             'closeButtonLabel': params.closeButtonLabel || polyglot.t('closeButtonLabel'),
             'statusLabel': params.statusLabel || polyglot.t('statusLabel'),
             'requestingStatusMessage': params.requestingStatusMessage || polyglot.t('requestingStatusMessage'),
-            'checkboxCloseModal':polyglot.t('checkboxCloseModal'),
+            'checkboxCloseModal': polyglot.t('checkboxCloseModal'),
             'outputRequestInterval': 1000,
             'endpoint': params.endpoint || '/deferred-report-queue-item'
         };
