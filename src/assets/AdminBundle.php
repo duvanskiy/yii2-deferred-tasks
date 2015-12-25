@@ -23,5 +23,7 @@ class AdminBundle extends AssetBundle
     public $depends = [
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
+        // add polyglot
+        'DevGroup\Polyglot\CurrentTranslation',
     ];
 }
